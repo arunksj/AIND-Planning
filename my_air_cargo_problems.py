@@ -60,7 +60,24 @@ class AirCargoProblem(Problem):
             :return: list of Action objects
             """
             loads = []
-            # TODO create all load ground actions from the domain Load action
+
+            for cargo in self.cargos:
+                for airport in self.airports:
+                    for plane in self.planes:
+                        precond = [
+                            expr("At({}, {})".format(cargo, airport)),
+                            expr("At({}, {})".format(plane, airport))
+                        ]
+
+                        effect_add = [expr("In({}, {})".format(cargo, plane))]
+                        effect_rem = [expr("At({}, {})".format(cargo, airport))]
+
+                        load = Action(expr("Load({}, {}, {})".format(cargo, plane, airport)),
+                                      [precond, []],
+                                      [effect_add, effect_rem])
+
+                        loads.append(load)
+
             return loads
 
         def unload_actions():
@@ -198,12 +215,12 @@ def air_cargo_p2() -> AirCargoProblem:
            expr('At(P2, JFK)'),
            expr('At(P3, ATL)'),
            ]
-    neg = [expr('At(C2, SFO)'),
+    neg = [expr('At(C1, JFK)'),
+           expr('At(C1, ATL)'),
+           expr('At(C2, SFO)'),
            expr('At(C2, ATL)'),
            expr('At(C3, SFO)'),
            expr('At(C3, JFK)'),
-           expr('At(C1, JFK)'),
-           expr('At(C1, ATL)'),
            expr('In(C1, P1)'),
            expr('In(C1, P2)'),
            expr('In(C1, P3)'),
@@ -230,7 +247,7 @@ def air_cargo_p2() -> AirCargoProblem:
 
 def air_cargo_p3() -> AirCargoProblem:
     cargos = ['C1', 'C2', 'C3', 'C4']
-    planes = ['P1', 'P2', 'P3']
+    planes = ['P1', 'P2']
     airports = ['JFK', 'SFO', 'ATL', 'ORD']
     pos = [expr('At(C1, SFO)'),
            expr('At(C2, JFK)'),
