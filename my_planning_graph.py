@@ -351,8 +351,12 @@ class PlanningGraph():
 
         prev_actions = self.a_levels[level - 1]
 
+        all_eff_nodes = set()
+
         for curr_action in prev_actions:
-            self.s_levels.append(curr_action.effnodes)
+            all_eff_nodes.update(curr_action.effnodes)
+
+        self.s_levels.append(all_eff_nodes)
 
     def update_a_mutex(self, nodeset):
         """ Determine and update sibling mutual exclusion for A-level nodes
