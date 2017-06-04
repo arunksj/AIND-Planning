@@ -431,13 +431,9 @@ class PlanningGraph():
         """
 
         a1_effect_add = node_a1.action.effect_add
-        a1_effect_rem = node_a1.action.effect_rem
-        a1_pre_pos = node_a1.action.precond_pos
         a1_pre_neg = node_a1.action.precond_neg
 
         a2_effect_add = node_a2.action.effect_add
-        a2_effect_rem = node_a2.action.effect_rem
-        a2_pre_pos = node_a2.action.precond_pos
         a2_pre_neg = node_a2.action.precond_neg
 
         if set(a1_effect_add) == set(a2_pre_neg) or set(a2_effect_add) == set(a1_pre_neg):
@@ -455,9 +451,16 @@ class PlanningGraph():
         :param node_a2: PgNode_a
         :return: bool
         """
+        a1_pre_pos = set(node_a1.action.precond_pos)
+        a1_pre_neg = set(node_a1.action.precond_neg)
 
-        # TODO test for Competing Needs between nodes
-        return False
+        a2_pre_pos = set(node_a2.action.precond_pos)
+        a2_pre_neg = set(node_a2.action.precond_neg)
+
+        if len(a1_pre_pos & a2_pre_neg) != 0 or len(a1_pre_neg & a2_pre_pos) != 0:
+            return True
+        else:
+            return False
 
     def update_s_mutex(self, nodeset: set):
         """ Determine and update sibling mutual exclusion for S-level nodes
@@ -491,8 +494,11 @@ class PlanningGraph():
         :param node_s2: PgNode_s
         :return: bool
         """
-        # TODO test for negation between nodes
-        return False
+
+        if (node_s1.symbol == node_s2.symbol) and (node_s1.is_pos != node_s2.is_pos):
+            return True
+        else:
+            return False
 
     def inconsistent_support_mutex(self, node_s1: PgNode_s, node_s2: PgNode_s):
         """
