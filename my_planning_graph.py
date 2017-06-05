@@ -2,6 +2,7 @@ from aimacode.planning import Action
 from aimacode.search import Problem
 from aimacode.utils import expr
 from lp_utils import decode_state
+from itertools import combinations
 
 
 class PgNode():
@@ -525,8 +526,20 @@ class PlanningGraph():
         :param node_s2: PgNode_s
         :return: bool
         """
-        # TODO test for Inconsistent Support between nodes
-        return False
+
+        all_parent_actions = set(node_s1.parents).union(set(node_s2.parents))
+
+        for action_pair in combinations(all_parent_actions, r=2):
+            first_action = action_pair[0]
+            second_action = action_pair[1]
+
+            if (node_s1 in first_action.effnodes and node_s2 in first_action.effnodes) or (node_s1 in second_action.effnodes and node_s2 in second_action.effnodes):
+                return False
+
+            if not first_action.is_mutex(second_action):
+                return False
+
+        return True
 
     def h_goal_distance(self, goal: expr) -> int:
         curr_goal_cost = 0
