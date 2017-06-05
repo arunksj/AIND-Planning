@@ -528,6 +528,18 @@ class PlanningGraph():
         # TODO test for Inconsistent Support between nodes
         return False
 
+    def h_goal_distance(self, goal: expr) -> int:
+        curr_goal_cost = 0
+
+        for state_level in self.s_levels:
+            for state in state_level:
+                if state.symbol == goal and state.is_pos:
+                    return curr_goal_cost
+
+            curr_goal_cost += 1
+
+        return int('inf')
+
     def h_levelsum(self) -> int:
         """The sum of the level costs of the individual goals (admissible if goals independent)
 
@@ -536,4 +548,10 @@ class PlanningGraph():
         level_sum = 0
         # TODO implement
         # for each goal in the problem, determine the level cost, then add them together
+
+        all_goals = self.problem.goal
+
+        for goal in all_goals:
+            level_sum += self.h_goal_distance(goal)
+
         return level_sum
