@@ -467,6 +467,11 @@ class PlanningGraph():
         a2_pre_pos = set(node_a2.action.precond_pos)
         a2_pre_neg = set(node_a2.action.precond_neg)
 
+        for a1_parent in node_a1.parents:
+            for a2_parent in node_a2.parents:
+                if a1_parent.is_mutex(a2_parent):
+                    return True
+
         if len(a1_pre_pos & a2_pre_neg) != 0 or len(a1_pre_neg & a2_pre_pos) != 0:
             return True
         else:
