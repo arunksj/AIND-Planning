@@ -1,9 +1,11 @@
+(aind) ITIN000002-MAC:AIND-Planning arunkumar.jadhav$ python run_search.py -p 1 2 3  -s 9 10 
+
 Solving Air Cargo Problem 1 using astar_search with h_ignore_preconditions...
 
 Expansions   Goal Tests   New Nodes
     55          57         224    
 
-Plan length: 6  Time elapsed in seconds: 0.03811462200246751
+Plan length: 6  Time elapsed in seconds: 0.037689930002670735
 Load(C1, P1, SFO)
 Load(C2, P2, JFK)
 Fly(P1, SFO, JFK)
@@ -11,12 +13,13 @@ Fly(P2, JFK, SFO)
 Unload(C1, P1, JFK)
 Unload(C2, P2, SFO)
 
+
 Solving Air Cargo Problem 1 using astar_search with h_pg_levelsum...
 
 Expansions   Goal Tests   New Nodes
     11          13          50    
 
-Plan length: 6  Time elapsed in seconds: 0.532207591983024
+Plan length: 6  Time elapsed in seconds: 0.5406215570110362
 Load(C1, P1, SFO)
 Fly(P1, SFO, JFK)
 Load(C2, P2, JFK)
@@ -30,7 +33,7 @@ Solving Air Cargo Problem 2 using astar_search with h_ignore_preconditions...
 Expansions   Goal Tests   New Nodes
    4853        4855       44041   
 
-Plan length: 9  Time elapsed in seconds: 11.884883977996651
+Plan length: 9  Time elapsed in seconds: 12.343963621009607
 Load(C1, P1, SFO)
 Load(C2, P2, JFK)
 Load(C3, P3, ATL)
@@ -47,7 +50,7 @@ Solving Air Cargo Problem 2 using astar_search with h_pg_levelsum...
 Expansions   Goal Tests   New Nodes
     86          88         841    
 
-Plan length: 9  Time elapsed in seconds: 46.58658821400604
+Plan length: 9  Time elapsed in seconds: 47.15591845300514
 Load(C1, P1, SFO)
 Fly(P1, SFO, JFK)
 Load(C2, P2, JFK)
@@ -64,7 +67,7 @@ Solving Air Cargo Problem 3 using astar_search with h_ignore_preconditions...
 Expansions   Goal Tests   New Nodes
   18235       18237       159716  
 
-Plan length: 12  Time elapsed in seconds: 53.974856084998464
+Plan length: 12  Time elapsed in seconds: 54.04910995499813
 Load(C1, P1, SFO)
 Load(C2, P2, JFK)
 Fly(P1, SFO, ATL)
@@ -77,13 +80,14 @@ Unload(C4, P2, SFO)
 Unload(C3, P1, JFK)
 Unload(C2, P2, SFO)
 Unload(C1, P1, JFK)
+
 
 Solving Air Cargo Problem 3 using astar_search with h_pg_levelsum...
 
 Expansions   Goal Tests   New Nodes
    315         317         2902   
 
-Plan length: 12  Time elapsed in seconds: 230.36026459999266
+Plan length: 12  Time elapsed in seconds: 234.19895364399417
 Load(C2, P2, JFK)
 Fly(P2, JFK, ORD)
 Load(C4, P2, ORD)
@@ -96,5 +100,3 @@ Unload(C4, P2, SFO)
 Unload(C3, P1, JFK)
 Unload(C2, P2, SFO)
 Unload(C1, P1, JFK)
-
-
